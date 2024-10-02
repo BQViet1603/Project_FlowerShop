@@ -38,7 +38,10 @@
                         </li>
                     </ul>
                     <form action="mainController" method="post" class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" name="txtsearch" value="<%= (request.getParameter("txtsearch")==null)?"": request.getParameter("txtsearch")%>" placeholder="Search">
+                        <input class="form-control mr-sm-2" type="text" name="txtsearch" 
+                               value="${param.txtsearch}" 
+                               placeholder="Search">
+
                         <select class="form-control mr-sm-2" name="searchby">
                             <option value="byname">By Name</option>
                             <option value="bycate">By Category</option>
