@@ -4,7 +4,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>JSP Page</title>
+        <title>Order Management</title>
         <link rel="stylesheet" href="mycss.css" type="text/css" />
 
         <!-- Bootstrap CSS -->
@@ -17,13 +17,13 @@
     <body>
         <c:import url="header_loginedAdmin.jsp"/>
         <div class="container mt-4">
+            <h1>Order Management</h1> <!-- Added content to the heading -->
             <form action="mainController" method="post" class="form-inline mb-4">
                 <div class="form-group mr-2">
                     <input type="text" name="txtSearch" class="form-control" placeholder="Search Order by Email">
                 </div>
                 <button type="submit" class="btn btn-primary" name="action" value="searchOrderByEmail">Search</button>
             </form>
-            <h1></h1>
             <table class="table table-bordered table-striped">
                 <thead class="thead-dark">
                     <tr>
