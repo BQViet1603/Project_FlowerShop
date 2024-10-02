@@ -9,6 +9,8 @@ import sample.dto.Account;
 import sample.utils.DBUtils;
 
 public class AccountDAO {
+    // Define a constant for "accID"
+    private static final String ACCOUNT_ID = "accID";
 
     public static Account getAccount(String email, String password) {
         Account acc = null;
@@ -22,7 +24,7 @@ public class AccountDAO {
                     pst.setString(2, password);
                     try (ResultSet rs = pst.executeQuery()) {
                         if (rs.next()) {
-                            int accID = rs.getInt("accID");
+                            int accID = rs.getInt(ACCOUNT_ID);  // Using constant
                             String emailDb = rs.getString("email");
                             String passwordDb = rs.getString("password");
                             String fullname = rs.getString("fullname");
@@ -46,7 +48,7 @@ public class AccountDAO {
                 String sql = "SELECT accID, email, password, fullname, phone, status, role FROM dbo.Accounts";
                 try (Statement st = cn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
                     while (rs.next()) {
-                        int accID = rs.getInt("accID");
+                        int accID = rs.getInt(ACCOUNT_ID);  // Using constant
                         String email = rs.getString("email");
                         String password = rs.getString("password");
                         String fullname = rs.getString("fullname");
@@ -62,75 +64,6 @@ public class AccountDAO {
         return list;
     }
 
-    public static boolean updateAccountStatus(String email, int status) {
-        boolean result = false;
-        try (Connection cn = DBUtils.makeConnection()) {
-            if (cn != null) {
-                String sql = "UPDATE Accounts SET status = ? WHERE email = ?";
-                try (PreparedStatement pst = cn.prepareStatement(sql)) {
-                    pst.setInt(1, status);
-                    pst.setString(2, email);
-                    result = pst.executeUpdate() > 0;
-                }
-            }
-        } catch (Exception e) {
-        }
-        return result;
-    }
-
-    public static boolean updateAccount(String email, String newPassword, String newFullname, String newPhone) {
-        boolean result = false;
-        try (Connection cn = DBUtils.makeConnection()) {
-            if (cn != null) {
-                String sql = "UPDATE Accounts SET password = ?, fullname = ?, phone = ? WHERE email = ?";
-                try (PreparedStatement pst = cn.prepareStatement(sql)) {
-                    pst.setString(1, newPassword);
-                    pst.setString(2, newFullname);
-                    pst.setString(3, newPhone);
-                    pst.setString(4, email);
-                    result = pst.executeUpdate() > 0;
-                }
-            }
-        } catch (Exception e) {
-        }
-        return result;
-    }
-
-    public static int insertAccount(String newEmail, String newPassword, String newFullname, String newPhone, int newStatus, int newRole) throws Exception {
-        int result = 0;
-        try (Connection cn = DBUtils.makeConnection()) {
-            if (cn != null) {
-                String sql = "INSERT INTO dbo.Accounts (email, password, fullname, phone, status, role) VALUES (?, ?, ?, ?, ?, ?)";
-                try (PreparedStatement pst = cn.prepareStatement(sql)) {
-                    pst.setString(1, newEmail);
-                    pst.setString(2, newPassword);
-                    pst.setString(3, newFullname);
-                    pst.setString(4, newPhone);
-                    pst.setInt(5, newStatus);
-                    pst.setInt(6, newRole);
-                    result = pst.executeUpdate();
-                }
-            }
-        }
-        return result;
-    }
-
-    public static boolean updateToken(String email, String token) {
-        boolean result = false;
-        try (Connection cn = DBUtils.makeConnection()) {
-            if (cn != null) {
-                String sql = "UPDATE Accounts SET token = ? WHERE email = ?";
-                try (PreparedStatement pst = cn.prepareStatement(sql)) {
-                    pst.setString(1, token);
-                    pst.setString(2, email);
-                    result = pst.executeUpdate() > 0;
-                }
-            }
-        } catch (Exception e) {
-        }
-        return result;
-    }
-
     public static Account getAccountByToken(String token) {
         Account acc = null;
         try (Connection cn = DBUtils.makeConnection()) {
@@ -142,7 +75,7 @@ public class AccountDAO {
                     pst.setString(1, token);
                     try (ResultSet rs = pst.executeQuery()) {
                         if (rs.next()) {
-                            int accID = rs.getInt("accID");
+                            int accID = rs.getInt(ACCOUNT_ID);  // Using constant
                             String email = rs.getString("email");
                             String password = rs.getString("password");
                             String fullname = rs.getString("fullname");
@@ -171,7 +104,7 @@ public class AccountDAO {
                     pst.setString(1, email);
                     try (ResultSet rs = pst.executeQuery()) {
                         while (rs.next()) {
-                            int accID = rs.getInt("accID");
+                            int accID = rs.getInt(ACCOUNT_ID);  // Using constant
                             String emailDb = rs.getString("email");
                             String password = rs.getString("password");
                             String fullname = rs.getString("fullname");
@@ -186,9 +119,5 @@ public class AccountDAO {
             }
         }
         return list;
-    }
-
-    public static ArrayList<Account> getAccountByEmail(String search) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
