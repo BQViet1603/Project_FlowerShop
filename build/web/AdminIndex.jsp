@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <img src="images/background.jpg" class="img-fluid" alt="Responsive image"/>
+                        <img src="images/background.jpg" class="img-fluid" alt="Background scenery"/>
                     </div>
                 </div>
             </div>
